@@ -1,5 +1,11 @@
 # Changelog
 
+## 2.3.1 (2026-10-14)
+
+### 变更
+- 重新打包发布以刷新 ClawHub 审核：无代码变更，版本号随打包流程（`scripts/package-skill.sh`）统一进 SKILL.md 与 `boss_cdp_raw.py.__version__`
+- 新增 `scripts/package-skill.sh`：一键 bump 版本 + 组装干净技能包（SKILL.md/scripts/data/LICENSE/README），带版本一致性与文件完整性校验
+
 ## 未发布
 
 ### 变更
