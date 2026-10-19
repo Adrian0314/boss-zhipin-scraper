@@ -607,11 +607,16 @@ class NetworkJoblistCapture:
 def map_job_type(raw_value):
     """BOSS 的 jobType 原始值 → 可读类型。
 
-    实测（2026-10）：全职返回 0，兼职返回 4。
-    未知值原样保留，便于以后 BOSS 改编码时能看出来。
+    实测（2026-10）：
+      0 = 全职（用 --job-type full 抓取验证）
+      4 = 兼职（用 --job-type part 抓取验证）
+      5 = 实习（9/9 样本 experience 均为「在校/应届」，多为校招/初级岗）
+      6 = 兼职（2/2 样本职位名带「（兼职）」，薪资按元/月而非元/天）
+    其它未知编码归为「其他」——绝不能把裸数字透传到 UI/JSON，
+    否则筛选下拉会出现「5」这种用户看不懂的选项。
     """
     text = str(raw_value if raw_value is not None else "").strip()
-    return {"0": "全职", "4": "兼职"}.get(text, text)
+    return {"0": "全职", "4": "兼职", "5": "实习", "6": "兼职"}.get(text, "其他")
 
 
 def map_api_job(raw):
